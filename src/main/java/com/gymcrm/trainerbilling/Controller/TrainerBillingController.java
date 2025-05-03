@@ -1,6 +1,6 @@
 package com.gymcrm.trainerbilling.Controller;
 
-import com.gymcrm.trainerbilling.DTO.TrainerTrainingInformationDTO;
+import com.gymcrm.trainerbilling.DTO.TrainingBillingDTO;
 import com.gymcrm.trainerbilling.Entities.TrainerBilling;
 import com.gymcrm.trainerbilling.Service.TrainerBillingService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,10 +31,10 @@ public class TrainerBillingController {
             @ApiResponse(responseCode  = "400", description = "Invalid input"),
             @ApiResponse(responseCode  = "400", description = "Unauthorized access")
     })
-    public ResponseEntity<String> billing(@Parameter(description = "Details of the training to be created", required = true) @RequestBody TrainerTrainingInformationDTO trainerTrainingInformationDTO) {
+    public ResponseEntity<String> billing(@Parameter(description = "Details of the training to be created", required = true) @RequestBody TrainingBillingDTO trainingBillingDTO) {
         String transactionId = MDC.get("transactionId");
         logger.info("Processing request. transactionId={}", transactionId);
-        TrainerBilling trainerBilling = trainerBillingService.createBilling(trainerTrainingInformationDTO);
+        TrainerBilling trainerBilling = trainerBillingService.createBilling(trainingBillingDTO);
         if (trainerBilling == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Data Provided");
         }

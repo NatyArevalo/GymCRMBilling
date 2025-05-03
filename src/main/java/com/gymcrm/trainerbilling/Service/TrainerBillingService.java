@@ -3,7 +3,7 @@ package com.gymcrm.trainerbilling.Service;
 import com.gymcrm.trainerbilling.DTO.TrainerBillingDTO;
 import com.gymcrm.trainerbilling.DTO.TrainerBillingMonthDTO;
 import com.gymcrm.trainerbilling.DTO.TrainerBillingYearDTO;
-import com.gymcrm.trainerbilling.DTO.TrainerTrainingInformationDTO;
+import com.gymcrm.trainerbilling.DTO.TrainingBillingDTO;
 import com.gymcrm.trainerbilling.Entities.TrainerBilling;
 import com.gymcrm.trainerbilling.Entities.TrainerBillingMonth;
 import com.gymcrm.trainerbilling.Entities.TrainerBillingYear;
@@ -39,14 +39,14 @@ public class TrainerBillingService {
     @Autowired
     TrainerBillingMonthMapper trainerBillingMonthMapper;
 
-    public TrainerBilling createBilling(TrainerTrainingInformationDTO trainerTrainingInformationDTO){
+    public TrainerBilling createBilling(TrainingBillingDTO trainingBillingDTO){
         //DTO creation
-        TrainerBillingDTO trainerBillingDTO = trainerBillingInformationMapper.mapToDTO(trainerTrainingInformationDTO);
-        TrainerBillingYearDTO trainerBillingYearDTO = trainerBillingYearMapper.mapToDTO(trainerTrainingInformationDTO);
-        TrainerBillingMonthDTO trainerBillingMonthDTO = trainerBillingMonthMapper.mapToDTO(trainerTrainingInformationDTO);
+        TrainerBillingDTO trainerBillingDTO = trainerBillingInformationMapper.mapToDTO(trainingBillingDTO);
+        TrainerBillingYearDTO trainerBillingYearDTO = trainerBillingYearMapper.mapToDTO(trainingBillingDTO);
+        TrainerBillingMonthDTO trainerBillingMonthDTO = trainerBillingMonthMapper.mapToDTO(trainingBillingDTO);
 
         //Entity creation
-        TrainerBilling trainerBilling = getTrainerBillingByUsername(trainerTrainingInformationDTO.getTrainerUsername());
+        TrainerBilling trainerBilling = getTrainerBillingByUsername(trainingBillingDTO.getTrainerUsername());
 
         if (trainerBilling == null) {
             trainerBilling = createNewBillingHierarchy(trainerBillingDTO, trainerBillingYearDTO, trainerBillingMonthDTO);

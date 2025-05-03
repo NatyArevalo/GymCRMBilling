@@ -1,6 +1,6 @@
 package com.gymcrm.trainerbilling.Receivers;
 
-import com.gymcrm.trainerbilling.DTO.TrainerTrainingInformationDTO;
+import com.gymcrm.trainerbilling.DTO.TrainingBillingDTO;
 import com.gymcrm.trainerbilling.Entities.TrainerBilling;
 import org.slf4j.Logger;
 import com.gymcrm.trainerbilling.Service.TrainerBillingService;
@@ -18,11 +18,11 @@ public class TrainingReceiver {
     private static final Logger logger = LoggerFactory.getLogger(TrainingReceiver.class);
 
     @JmsListener(destination = "trainer-billing-queue")
-    public void receiveTraining(TrainerTrainingInformationDTO trainerTrainingInformationDTO) {
+    public void receiveTraining(TrainingBillingDTO trainingBillingDTO) {
         String transactionId = MDC.get("transactionId");
         logger.info("Received billing request via ActiveMQ. transactionId={}", transactionId);
 
-        TrainerBilling trainerBilling = trainerBillingService.createBilling(trainerTrainingInformationDTO);
+        TrainerBilling trainerBilling = trainerBillingService.createBilling(trainingBillingDTO);
         if (trainerBilling == null) {
             logger.error("Billing failed. Invalid data.");
         } else {

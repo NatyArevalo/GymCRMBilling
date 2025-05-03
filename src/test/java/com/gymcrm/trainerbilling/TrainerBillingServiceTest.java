@@ -3,7 +3,7 @@ package com.gymcrm.trainerbilling;
 import com.gymcrm.trainerbilling.DTO.TrainerBillingDTO;
 import com.gymcrm.trainerbilling.DTO.TrainerBillingMonthDTO;
 import com.gymcrm.trainerbilling.DTO.TrainerBillingYearDTO;
-import com.gymcrm.trainerbilling.DTO.TrainerTrainingInformationDTO;
+import com.gymcrm.trainerbilling.DTO.TrainingBillingDTO;
 import com.gymcrm.trainerbilling.Entities.TrainerBilling;
 import com.gymcrm.trainerbilling.Entities.TrainerBillingMonth;
 import com.gymcrm.trainerbilling.Entities.TrainerBillingYear;
@@ -15,7 +15,6 @@ import com.gymcrm.trainerbilling.Repository.TrainerBillingMonthRepository;
 import com.gymcrm.trainerbilling.Repository.TrainerBillingRepository;
 import com.gymcrm.trainerbilling.Repository.TrainerBillingYearRepository;
 import com.gymcrm.trainerbilling.Service.TrainerBillingService;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -65,21 +64,21 @@ public class TrainerBillingServiceTest {
     private TrainerBilling trainerBilling;
 
     // Sample data setup
-    private final TrainerTrainingInformationDTO trainerTrainingInformationDTO = new TrainerTrainingInformationDTO();
+    private final TrainingBillingDTO trainingBillingDTO = new TrainingBillingDTO();
     private final TrainerBillingDTO trainerBillingDTO = new TrainerBillingDTO();
     private final TrainerBillingYearDTO trainerBillingYearDTO = new TrainerBillingYearDTO();
     private final TrainerBillingMonthDTO trainerBillingMonthDTO = new TrainerBillingMonthDTO();
 
     @BeforeEach
     void setUp() {
-        trainerTrainingInformationDTO.setTrainerUsername("Jhon.Doe1");
+        trainingBillingDTO.setTrainerUsername("Jhon.Doe1");
         trainerBillingYearDTO.setYear(2025);
         trainerBillingMonthDTO.setMonth(4);
         trainerBillingMonthDTO.setTrainingDuration(2.0);
 
-        when(trainerBillingInformationMapper.mapToDTO(trainerTrainingInformationDTO)).thenReturn(trainerBillingDTO);
-        when(trainerBillingYearMapper.mapToDTO(trainerTrainingInformationDTO)).thenReturn(trainerBillingYearDTO);
-        when(trainerBillingMonthMapper.mapToDTO(trainerTrainingInformationDTO)).thenReturn(trainerBillingMonthDTO);
+        when(trainerBillingInformationMapper.mapToDTO(trainingBillingDTO)).thenReturn(trainerBillingDTO);
+        when(trainerBillingYearMapper.mapToDTO(trainingBillingDTO)).thenReturn(trainerBillingYearDTO);
+        when(trainerBillingMonthMapper.mapToDTO(trainingBillingDTO)).thenReturn(trainerBillingMonthDTO);
     }
     @Test
     void testCreateBilling_WhenTrainerBillingIsNull_CreatesNewHierarchy() {
@@ -112,7 +111,7 @@ public class TrainerBillingServiceTest {
 
         when(trainerBillingRepository.save(newBilling)).thenReturn(newBilling);
 
-        TrainerBilling result = trainerBillingService.createBilling(trainerTrainingInformationDTO);
+        TrainerBilling result = trainerBillingService.createBilling(trainingBillingDTO);
 
         assertEquals(newBilling, result);
         assertEquals(1, newBilling.getYears().size());
@@ -140,7 +139,7 @@ public class TrainerBillingServiceTest {
 
         when(trainerBillingRepository.save(existingBilling)).thenReturn(existingBilling);
 
-        TrainerBilling result = trainerBillingService.createBilling(trainerTrainingInformationDTO);
+        TrainerBilling result = trainerBillingService.createBilling(trainingBillingDTO);
 
         assertEquals(5, result.getYears().get(0).getMonths().get(0).getTrainingDuration());
     }
@@ -168,7 +167,7 @@ public class TrainerBillingServiceTest {
         when(trainerBillingMonthMapper.mapToEntity(trainerBillingMonthDTO, existingYear)).thenReturn(newMonth);
         when(trainerBillingRepository.save(existingBilling)).thenReturn(existingBilling);
 
-        TrainerBilling result = trainerBillingService.createBilling(trainerTrainingInformationDTO);
+        TrainerBilling result = trainerBillingService.createBilling(trainingBillingDTO);
 
         assertEquals(1, existingYear.getMonths().size());
         assertEquals(newMonth, existingYear.getMonths().get(0));
