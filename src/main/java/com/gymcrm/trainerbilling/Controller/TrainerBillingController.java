@@ -42,8 +42,4 @@ public class TrainerBillingController {
 //        System.out.println(trainerBilling.getYears());
         return ResponseEntity.ok("Billing process completed successfully.");
     }
-//    @GetMapping("/{username}")
-//    public TrainerBilling getTrainerBillingByUsername(@PathVariable String username) {
-//        return trainerBillingService.getTrainerBillingByUsername(username);
-//    }
 }
