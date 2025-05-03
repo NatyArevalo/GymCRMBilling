@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TrainerTrainingInformationDTO implements Serializable {
+public class TrainerTrainingInformationDTO {
     private String trainerUsername;
     private String trainerFirstName;
     private String trainerLastName;
