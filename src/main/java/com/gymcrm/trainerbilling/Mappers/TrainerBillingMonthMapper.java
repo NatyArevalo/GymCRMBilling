@@ -1,15 +1,13 @@
 package com.gymcrm.trainerbilling.Mappers;
 
 import com.gymcrm.trainerbilling.DTO.TrainerBillingMonthDTO;
-import com.gymcrm.trainerbilling.DTO.TrainerTrainingInformationDTO;
+import com.gymcrm.trainerbilling.DTO.TrainingBillingDTO;
 import com.gymcrm.trainerbilling.Entities.TrainerBillingMonth;
 import com.gymcrm.trainerbilling.Entities.TrainerBillingYear;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -23,10 +21,10 @@ public class TrainerBillingMonthMapper {
         trainerBillingMonth.setTrainerBillingYear(trainerBillingYear);
         return trainerBillingMonth;
     }
-    public TrainerBillingMonthDTO mapToDTO(TrainerTrainingInformationDTO trainerTrainingInformationDTO) {
+    public TrainerBillingMonthDTO mapToDTO(TrainingBillingDTO trainingBillingDTO) {
         TrainerBillingMonthDTO trainerBillingMonthDTO = new TrainerBillingMonthDTO();
-        trainerBillingMonthDTO.setMonth(trainerTrainingInformationDTO.getTrainingDate().getMonth().getValue());
-        trainerBillingMonthDTO.setTrainingDuration(trainerTrainingInformationDTO.getTrainingDuration());
+        trainerBillingMonthDTO.setMonth(trainingBillingDTO.getTrainingDate().getMonth().getValue());
+        trainerBillingMonthDTO.setTrainingDuration(trainingBillingDTO.getTrainingDuration());
         return trainerBillingMonthDTO;
     }
 }
