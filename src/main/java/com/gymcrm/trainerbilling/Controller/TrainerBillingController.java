@@ -38,8 +38,6 @@ public class TrainerBillingController {
         if (trainerBilling == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Data Provided");
         }
-//        System.out.println(trainerBilling.toString());
-//        System.out.println(trainerBilling.getYears());
         return ResponseEntity.ok("Billing process completed successfully.");
     }
 }
