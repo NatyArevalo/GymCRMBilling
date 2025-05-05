@@ -21,17 +21,6 @@ public class JmsConfiguration {
         return new DynamicDestinationResolver();
     }
     @Bean
-    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(ConnectionFactory connectionFactory,
-                                                                         DestinationResolver destinationResolver, ObjectMapper objectMapper) {
-        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory);
-        factory.setDestinationResolver(destinationResolver);
-        factory.setMessageConverter(jacksonJmsMessageConverter(objectMapper));
-        factory.setSessionTransacted(true);
-        factory.setConcurrency("3-10");
-        return factory;
-    }
-    @Bean
     public MessageConverter jacksonJmsMessageConverter(ObjectMapper objectMapper) {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
@@ -39,4 +28,16 @@ public class JmsConfiguration {
         converter.setObjectMapper(objectMapper);
         return converter;
     }
+    @Bean
+    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(ConnectionFactory connectionFactory,
+                                                                         DestinationResolver destinationResolver, MessageConverter messageConverter) {
+        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory);
+        factory.setDestinationResolver(destinationResolver);
+        factory.setMessageConverter(messageConverter);
+        factory.setSessionTransacted(true);
+        factory.setConcurrency("3-10");
+        return factory;
+    }
+
 }
