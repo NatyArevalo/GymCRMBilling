@@ -10,16 +10,23 @@ import org.springframework.jms.support.converter.MappingJackson2MessageConverter
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
 import org.springframework.jms.support.destination.DestinationResolver;
+import org.springframework.jms.support.destination.DynamicDestinationResolver;
 
 
 @Configuration
 @EnableJms
 public class JmsConfiguration {
+    @Bean
+    public DestinationResolver destinationResolver() {
+        return new DynamicDestinationResolver();
+    }
 
     @Bean
-    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(ConnectionFactory connectionFactory) {
+    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(ConnectionFactory connectionFactory,
+                                                                          DestinationResolver destinationResolver) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
+        factory.setDestinationResolver(destinationResolver);
         factory.setSessionTransacted(true);
         factory.setConcurrency("3-10");
         return factory;
