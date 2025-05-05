@@ -20,13 +20,13 @@ public class JmsConfiguration {
     public DestinationResolver destinationResolver() {
         return new DynamicDestinationResolver();
     }
-
     @Bean
     public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(ConnectionFactory connectionFactory,
-                                                                          DestinationResolver destinationResolver) {
+                                                                         DestinationResolver destinationResolver, ObjectMapper objectMapper) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setDestinationResolver(destinationResolver);
+        factory.setMessageConverter(jacksonJmsMessageConverter(objectMapper));
         factory.setSessionTransacted(true);
         factory.setConcurrency("3-10");
         return factory;
