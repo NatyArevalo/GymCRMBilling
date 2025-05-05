@@ -17,11 +17,9 @@ import org.springframework.jms.support.destination.DestinationResolver;
 public class JmsConfiguration {
 
     @Bean
-    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(ConnectionFactory connectionFactory,
-                                                                          DestinationResolver destinationResolver) {
+    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(ConnectionFactory connectionFactory) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
-        factory.setDestinationResolver(destinationResolver);
         factory.setSessionTransacted(true);
         factory.setConcurrency("3-10");
         return factory;
