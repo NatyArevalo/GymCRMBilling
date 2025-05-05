@@ -16,10 +16,6 @@ import org.springframework.jms.support.destination.DynamicDestinationResolver;
 @Configuration
 @EnableJms
 public class JmsConfiguration {
-    @Bean
-    public DestinationResolver destinationResolver() {
-        return new DynamicDestinationResolver();
-    }
 
     @Bean
     public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(ConnectionFactory connectionFactory,
