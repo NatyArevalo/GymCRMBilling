@@ -26,11 +26,10 @@ public class TrainingReceiver {
         if (trainerBilling == null) {
             logger.error("Billing failed. Invalid data.");
         } else {
-            logger.info("Billing process completed successfully.");
-            String.format("Billing process completed successfully. Trainer: %s, Month: %s, Year: %s",
+            logger.info(String.format("Billing process completed successfully. Trainer: %s, Month: %s, Year: %s",
                     trainerBilling.getTrainerUsername(),
                     trainerBilling.getYears().get(0).getYear(),
-                    trainerBilling.getYears().get(0).getMonths().get(0).getMonth());
+                    trainerBilling.getYears().get(0).getMonths().get(0).getMonth()));
 
         }
     }
