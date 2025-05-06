@@ -29,12 +29,15 @@ public class JmsConfiguration {
         return converter;
     }
     @Bean
-    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(ConnectionFactory connectionFactory,
-                                                                         DestinationResolver destinationResolver) {
+    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(
+            ConnectionFactory connectionFactory,
+            DestinationResolver destinationResolver,
+            MessageConverter messageConverter
+    ) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setDestinationResolver(destinationResolver);
-//        factory.setMessageConverter(messageConverter);
+        factory.setMessageConverter(messageConverter);
         factory.setSessionTransacted(true);
         factory.setConcurrency("3-10");
         return factory;
