@@ -1,6 +1,7 @@
 package com.gymcrm.trainerbilling.Configurations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gymcrm.trainerbilling.DTO.TrainingBillingDTO;
 import jakarta.jms.ConnectionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,8 @@ import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
 import org.springframework.jms.support.destination.DestinationResolver;
 import org.springframework.jms.support.destination.DynamicDestinationResolver;
+
+import java.util.Map;
 
 
 @Configuration
@@ -24,7 +27,10 @@ public class JmsConfiguration {
     public MessageConverter jacksonJmsMessageConverter(ObjectMapper objectMapper) {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
-        converter.setTypeIdPropertyName("_type");
+        converter.setTypeIdMappings(Map.of(
+                "TrainingBillingDTO", TrainingBillingDTO.class
+        ));
+        converter.setTypeIdPropertyName("_typeId");
         converter.setObjectMapper(objectMapper);
         return converter;
     }
