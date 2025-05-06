@@ -16,10 +16,10 @@ import org.springframework.jms.support.destination.DynamicDestinationResolver;
 @Configuration
 @EnableJms
 public class JmsConfiguration {
-//    @Bean
-//    public DestinationResolver destinationResolver() {
-//        return new DynamicDestinationResolver();
-//    }
+    @Bean
+    public DestinationResolver destinationResolver() {
+        return new DynamicDestinationResolver();
+    }
     @Bean
     public MessageConverter jacksonJmsMessageConverter(ObjectMapper objectMapper) {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
