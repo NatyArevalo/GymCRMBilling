@@ -29,8 +29,8 @@ public class TrainingReceiver {
             logger.info("Billing process completed successfully.");
             String.format("Billing process completed successfully. Trainer: %s, Month: %s, Year: %s",
                     trainerBilling.getTrainerUsername(),
-                    trainerBilling.getYears().get(0).getYear());
-                    trainerBilling.getYears().get(0).getMonths().get(0).getMonth();
+                    trainerBilling.getYears().get(0).getYear(),
+                    trainerBilling.getYears().get(0).getMonths().get(0).getMonth());
 
         }
     }
