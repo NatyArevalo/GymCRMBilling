@@ -28,7 +28,7 @@ public class JmsConfiguration {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
         converter.setTypeIdMappings(Map.of(
-                "TrainingBillingDTO", TrainingBillingDTO.class
+                "TrainingBillingDTO", com.gymcrm.trainerbilling.DTO.TrainingBillingDTO.class
         ));
         converter.setTypeIdPropertyName("_typeId");
         converter.setObjectMapper(objectMapper);
