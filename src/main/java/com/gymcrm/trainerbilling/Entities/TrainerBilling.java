@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,17 +14,16 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Document(collection = "trainerBilling")
 public class TrainerBilling {
     @Id
-    @Column(name = "trainerBilling_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
+
     private String trainerUsername;
     private String trainerFirstName;
     private String trainerLastName;
     private Boolean status;
-    @OneToMany(mappedBy = "trainerBilling", cascade = CascadeType.ALL)
+
     private List<TrainerBillingYear> years = new ArrayList<>();
 
     public String toString() {

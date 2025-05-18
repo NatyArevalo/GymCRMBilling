@@ -11,9 +11,7 @@ import com.gymcrm.trainerbilling.Mappers.TrainerBillingInformationMapper;
 import com.gymcrm.trainerbilling.Mappers.TrainerBillingMapper;
 import com.gymcrm.trainerbilling.Mappers.TrainerBillingMonthMapper;
 import com.gymcrm.trainerbilling.Mappers.TrainerBillingYearMapper;
-import com.gymcrm.trainerbilling.Repository.TrainerBillingMonthRepository;
 import com.gymcrm.trainerbilling.Repository.TrainerBillingRepository;
-import com.gymcrm.trainerbilling.Repository.TrainerBillingYearRepository;
 import com.gymcrm.trainerbilling.Service.TrainerBillingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -93,13 +91,11 @@ public class TrainerBillingServiceTest {
 
         TrainerBillingYear newYear = new TrainerBillingYear();
         newYear.setYear(2025);
-        newYear.setTrainerBilling(newBilling);
         newYear.setMonths(new ArrayList<>());
 
         TrainerBillingMonth newMonth = new TrainerBillingMonth();
         newMonth.setMonth(4);
         newMonth.setTrainingDuration(5.0);
-        newMonth.setTrainerBillingYear(newYear);
 
         newYear.setMonths(new ArrayList<>());
         newBilling.setYears(new ArrayList<>());
@@ -127,7 +123,6 @@ public class TrainerBillingServiceTest {
         existingMonth.setTrainingDuration(3.0);
         existingYear.setMonths(new ArrayList<>(List.of(existingMonth)));
         existingYear.setYear(2025);
-        existingYear.setTrainerBilling(existingBilling);
         existingBilling.setYears(new ArrayList<>(List.of(existingYear)));
         existingBilling.setTrainerUsername("Jhon.Doe1");
         existingBilling.setTrainerFirstName("Jhon");
@@ -153,7 +148,6 @@ public class TrainerBillingServiceTest {
 
         TrainerBillingYear existingYear = new TrainerBillingYear();
         existingYear.setYear(2025);
-        existingYear.setTrainerBilling(existingBilling);
         existingYear.setMonths(new ArrayList<>());
 
         existingBilling.setYears(new ArrayList<>(List.of(existingYear)));

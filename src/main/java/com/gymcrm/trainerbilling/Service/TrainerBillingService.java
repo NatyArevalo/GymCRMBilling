@@ -11,33 +11,28 @@ import com.gymcrm.trainerbilling.Mappers.TrainerBillingInformationMapper;
 import com.gymcrm.trainerbilling.Mappers.TrainerBillingMapper;
 import com.gymcrm.trainerbilling.Mappers.TrainerBillingMonthMapper;
 import com.gymcrm.trainerbilling.Mappers.TrainerBillingYearMapper;
-import com.gymcrm.trainerbilling.Repository.TrainerBillingMonthRepository;
+import com.gymcrm.trainerbilling.Receivers.TrainingReceiver;
 import com.gymcrm.trainerbilling.Repository.TrainerBillingRepository;
-import com.gymcrm.trainerbilling.Repository.TrainerBillingYearRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class TrainerBillingService {
     @Autowired
     TrainerBillingRepository trainerBillingRepository;
-
-    @Autowired
-    TrainerBillingYearRepository trainerBillingYearRepository;
-
-    @Autowired
-    TrainerBillingMonthRepository   trainerBillingMonthRepository;
-
     @Autowired
     TrainerBillingInformationMapper trainerBillingInformationMapper;
     @Autowired
     TrainerBillingMapper trainerBillingMapper;
-
     @Autowired
     TrainerBillingYearMapper trainerBillingYearMapper;
-
     @Autowired
     TrainerBillingMonthMapper trainerBillingMonthMapper;
+
+    private static final Logger logger = LoggerFactory.getLogger(TrainingReceiver.class);
 
     public TrainerBilling createBilling(TrainingBillingDTO trainingBillingDTO){
         //DTO creation
@@ -57,20 +52,18 @@ public class TrainerBillingService {
         return trainerBillingRepository.save(trainerBilling);
     }
     public TrainerBilling getTrainerBillingByUsername(String username) {
-        return trainerBillingRepository.findByTrainerUsername(username);
+        return trainerBillingRepository.findByTrainerUsername(username).orElse(null);
     }
     private TrainerBilling createNewBillingHierarchy(TrainerBillingDTO billingDTO,
                                                      TrainerBillingYearDTO yearDTO,
                                                      TrainerBillingMonthDTO monthDTO) {
         TrainerBilling trainerBilling = trainerBillingMapper.mapToEntity(billingDTO, null);//No Year Yet
 
-        //Create Year and set it to parent
+        //Create Year
         TrainerBillingYear trainerBillingYear = trainerBillingYearMapper.mapToEntity(yearDTO, trainerBilling);
-        trainerBillingYear.setTrainerBilling(trainerBilling);
 
-        //Create Month and set it to parent
+        //Create Month
         TrainerBillingMonth trainerBillingMonth = trainerBillingMonthMapper.mapToEntity(monthDTO, trainerBillingYear);
-        trainerBillingMonth.setTrainerBillingYear(trainerBillingYear);
 
         //Link child to parent
         trainerBillingYear.getMonths().add(trainerBillingMonth);
@@ -83,24 +76,24 @@ public class TrainerBillingService {
                                                 TrainerBillingYearDTO yearDTO,
                                                 TrainerBillingMonthDTO monthDTO) {
 
-        TrainerBillingYear trainerBillingYear = trainerBillingYearRepository
-                .findByYearAndTrainerBilling(yearDTO.getYear(), trainerBilling);
+        TrainerBillingYear trainerBillingYear = trainerBilling.getYears().stream().filter(y -> y.getYear().equals(yearDTO.getYear())).findFirst().orElse(null);
 
         if (trainerBillingYear == null) {
             trainerBillingYear = trainerBillingYearMapper.mapToEntity(yearDTO, trainerBilling);
             trainerBilling.getYears().add(trainerBillingYear);
         }
 
-        TrainerBillingMonth trainerBillingMonth = trainerBillingMonthRepository
-                .findByMonthAndTrainerBillingYear(monthDTO.getMonth(), trainerBillingYear);
+        TrainerBillingMonth trainerBillingMonth = trainerBillingYear.getMonths().stream().filter(m -> m.getMonth().equals(monthDTO.getMonth())).findFirst().orElse(null);
 
         if (trainerBillingMonth == null) {
             trainerBillingMonth = trainerBillingMonthMapper.mapToEntity(monthDTO, trainerBillingYear);
             trainerBillingYear.getMonths().add(trainerBillingMonth);
         } else {
-            int index = trainerBillingYear.getMonths().indexOf(trainerBillingMonth);
-            TrainerBillingMonth existingMonth = trainerBillingYear.getMonths().get(index);
-            existingMonth.setTrainingDuration(existingMonth.getTrainingDuration() + monthDTO.getTrainingDuration());
+            trainerBillingMonth.setTrainingDuration(trainerBillingMonth.getTrainingDuration() + monthDTO.getTrainingDuration());
         }
+        logger.info("Updating month {} with duration {} -> {}",
+                trainerBillingMonth.getMonth(),
+                trainerBillingMonth.getTrainingDuration(),
+                trainerBillingMonth.getTrainingDuration() + monthDTO.getTrainingDuration());
     }
 }
