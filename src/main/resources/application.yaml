@@ -2,7 +2,7 @@ spring:
   application:
     name: spring-cloud-eureka-client
   activemq:
-    broker-url: ${ACTIVEMQ_BROKER_URL:disabled}
+    broker-url: tcp://activemq:61616
     enabled: true
     user: admin
     password: admin
@@ -19,4 +19,3 @@ eureka:
       defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
   instance:
     preferIpAddress: true
-
