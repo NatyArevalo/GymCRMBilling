@@ -7,10 +7,12 @@ import com.gymcrm.trainerbilling.Service.TrainerBillingService;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 @Component
+@ConditionalOnProperty(name = "activemq.enabled", havingValue = "true", matchIfMissing = false)
 public class TrainingReceiver {
     @Autowired
     private TrainerBillingService trainerBillingService;

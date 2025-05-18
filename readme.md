@@ -21,8 +21,6 @@ Trainer Billing Service is a Spring Boot application designed to manage billing 
 
 ### Security
 - Public endpoints:
-    - `/trainerbilling/test`
-    - `/trainerbilling/{username}`
     - `/trainerbilling/billing`
 - All other endpoints require authentication.
 
@@ -35,7 +33,7 @@ Trainer Billing Service is a Spring Boot application designed to manage billing 
 ## How to Run
 1. Run Dockerized Application
 2. If accessing directly to the application, make sure to send a JWT token in the header of the request.
-3. To get a valid token you can use the /login endpoint with the following body:
+3. To get a valid token you can use the /login endpoint on gymcrm with the following body:
 ```json
 {
   "username": "INSERT VALID USERNAME",

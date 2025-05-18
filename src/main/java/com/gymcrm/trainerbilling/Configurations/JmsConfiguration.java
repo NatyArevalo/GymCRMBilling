@@ -1,8 +1,8 @@
 package com.gymcrm.trainerbilling.Configurations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gymcrm.trainerbilling.DTO.TrainingBillingDTO;
 import jakarta.jms.ConnectionFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
@@ -18,6 +18,7 @@ import java.util.Map;
 
 @Configuration
 @EnableJms
+@ConditionalOnProperty(name = "activemq.enabled", havingValue = "true", matchIfMissing = false)
 public class JmsConfiguration {
     @Bean
     public DestinationResolver destinationResolver() {

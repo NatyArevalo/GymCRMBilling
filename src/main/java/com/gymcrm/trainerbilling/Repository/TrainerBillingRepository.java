@@ -1,11 +1,12 @@
 package com.gymcrm.trainerbilling.Repository;
 
 import com.gymcrm.trainerbilling.Entities.TrainerBilling;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-public interface TrainerBillingRepository extends JpaRepository<TrainerBilling, Long> {
-    @Query("SELECT t FROM TrainerBilling t WHERE t.trainerUsername = :username")
-   TrainerBilling findByTrainerUsername(@Param("username") String username);
+import java.util.Optional;
+
+@Repository
+public interface TrainerBillingRepository extends MongoRepository<TrainerBilling, String> {
+   Optional<TrainerBilling> findByTrainerUsername(String username);
 }
