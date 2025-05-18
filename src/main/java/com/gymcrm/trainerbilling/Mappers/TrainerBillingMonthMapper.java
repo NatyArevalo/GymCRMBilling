@@ -18,7 +18,6 @@ public class TrainerBillingMonthMapper {
         TrainerBillingMonth trainerBillingMonth = new TrainerBillingMonth();
         trainerBillingMonth.setMonth(trainerBillingMonthDTO.getMonth());
         trainerBillingMonth.setTrainingDuration(trainerBillingMonthDTO.getTrainingDuration());
-        trainerBillingMonth.setTrainerBillingYear(trainerBillingYear);
         return trainerBillingMonth;
     }
     public TrainerBillingMonthDTO mapToDTO(TrainingBillingDTO trainingBillingDTO) {

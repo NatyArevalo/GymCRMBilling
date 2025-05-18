@@ -21,7 +21,6 @@ public class TrainerBillingYearMapper {
     public TrainerBillingYear mapToEntity(TrainerBillingYearDTO trainerBillingYearDTO, TrainerBilling trainerBilling) {
         TrainerBillingYear trainerBillingYear = new TrainerBillingYear();
         trainerBillingYear.setYear(trainerBillingYearDTO.getYear());
-        trainerBillingYear.setTrainerBilling(trainerBilling);
         return trainerBillingYear;
     }
     public TrainerBillingYearDTO mapToDTO(TrainingBillingDTO trainingBillingDTO) {
