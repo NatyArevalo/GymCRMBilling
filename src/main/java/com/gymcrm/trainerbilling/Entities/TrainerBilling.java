@@ -1,6 +1,6 @@
 package com.gymcrm.trainerbilling.Entities;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
