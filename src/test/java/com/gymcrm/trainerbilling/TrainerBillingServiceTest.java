@@ -35,12 +35,6 @@ public class TrainerBillingServiceTest {
     private TrainerBillingRepository trainerBillingRepository;
 
     @Mock
-    private TrainerBillingYearRepository trainerBillingYearRepository;
-
-    @Mock
-    private TrainerBillingMonthRepository trainerBillingMonthRepository;
-
-    @Mock
     private TrainerBillingInformationMapper trainerBillingInformationMapper;
 
     @Mock
@@ -129,8 +123,6 @@ public class TrainerBillingServiceTest {
         existingBilling.setTrainerLastName("Doe");
 
         when(trainerBillingService.getTrainerBillingByUsername("Jhon.Doe1")).thenReturn(existingBilling);
-        when(trainerBillingYearRepository.findByYearAndTrainerBilling(2025, existingBilling)).thenReturn(existingYear);
-        when(trainerBillingMonthRepository.findByMonthAndTrainerBillingYear(4, existingYear)).thenReturn(existingMonth);
 
         when(trainerBillingRepository.save(existingBilling)).thenReturn(existingBilling);
 
@@ -153,11 +145,9 @@ public class TrainerBillingServiceTest {
         existingBilling.setYears(new ArrayList<>(List.of(existingYear)));
 
         when(trainerBillingService.getTrainerBillingByUsername("Jhon.Doe1")).thenReturn(existingBilling);
-        when(trainerBillingYearRepository.findByYearAndTrainerBilling(2025, existingBilling)).thenReturn(existingYear);
         TrainerBillingMonth newMonth = new TrainerBillingMonth();
         newMonth.setMonth(4);
         newMonth.setTrainingDuration(2.0);
-        when(trainerBillingMonthRepository.findByMonthAndTrainerBillingYear(4, existingYear)).thenReturn(null);
         when(trainerBillingMonthMapper.mapToEntity(trainerBillingMonthDTO, existingYear)).thenReturn(newMonth);
         when(trainerBillingRepository.save(existingBilling)).thenReturn(existingBilling);
 
