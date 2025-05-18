@@ -2,8 +2,7 @@ spring:
   application:
     name: spring-cloud-eureka-client
   activemq:
-    broker-url: tcp://activemq:61616
-    enabled: true
+    broker-url: ${ACTIVEMQ_BROKER_URL:disabled}
     user: admin
     password: admin
   data:

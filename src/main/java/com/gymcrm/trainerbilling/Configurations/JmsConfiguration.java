@@ -18,7 +18,6 @@ import java.util.Map;
 
 @Configuration
 @EnableJms
-@ConditionalOnProperty(name = "activemq.enabled", havingValue = "true", matchIfMissing = false)
 public class JmsConfiguration {
     @Bean
     public DestinationResolver destinationResolver() {
