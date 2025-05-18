@@ -12,7 +12,7 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 @Component
-
+@ConditionalOnProperty(name = "activemq.enabled", havingValue = "true", matchIfMissing = false)
 public class TrainingReceiver {
     @Autowired
     private TrainerBillingService trainerBillingService;
