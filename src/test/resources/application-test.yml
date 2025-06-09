@@ -1,0 +1,18 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/trainerbilling_test
+  jms:
+    listener:
+      auto-startup: false
+  activemq:
+    broker-url: vm://localhost?broker.persistent=false
+    in-memory: true
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
+
+JWT_SECRET: ${JWT_SECRET}
